@@ -4,16 +4,17 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s: %(message)s:]')
 
-
 list_of_files = [
     ".github/workflows/.gitkeep",
-    "src/training_pipeline/__init__.py",
-    "src/inference_pipeline/__init__.py",
+    "src/training/__init__.py",
+    "src/inference/__init__.py",
+    "src/preprocess/__init__.py",
     "src/utils/__init__.py",
-    "src/config/__init__.py",
-    "src/pipeline/__init__.py",
     "src/models/__init__.py",
-    "tests/__init__.py"
+    "src/config/__init__.py",
+    "src/constants/__init__.py",
+    "src/entity/__init__.py",
+    "tests/__init__.py",
     "config/config.yaml",
     "dvc.yaml",
     "params.yaml",
@@ -22,7 +23,6 @@ list_of_files = [
     "research/trials.ipynb",
     "templates/index.html"
 ]
-
 
 for filepath in list_of_files:
     filepath = Path(filepath)
