@@ -22,18 +22,8 @@ class DataIngestionTrainingPipeline:
             data_ingestion = DataIngestion(config=data_ingestion_config)
             data_ingestion.download_file()
             data_ingestion.extract_zip_file()
-            logger.info(f"Stage {constants.STAGE_NAME} completed successfully")
+            logger.info(f"Stage {constants.DATA_INGESTION_STEP} completed successfully")
         except Exception as e:
-            logger.exception(f"Error occurred in stage {constants.STAGE_NAME}: {e}")
+            logger.exception(f"Error occurred in stage {constants.DATA_INGESTION_STEP}: {e}")
             raise e
 
-
-if __name__ == '__main__':
-    try:
-        logger.info(f">>>>>> Stage {constants.STAGE_NAME} started <<<<<<")
-        obj = DataIngestionTrainingPipeline()
-        obj.main()
-        logger.info(f">>>>>> Stage {constants.STAGE_NAME} completed <<<<<<\n\nx==========x")
-    except Exception as e:
-        logger.exception(e)
-        raise e
