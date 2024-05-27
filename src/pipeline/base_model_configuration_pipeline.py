@@ -3,7 +3,7 @@ from src.logging import logger
 from src.constants import constants
 from src.models.base_model import BaseModel
 
-class BaseModelTrainingPipeline:
+class BaseModelConfigurationPipeline:
     def __init__(self):
         pass
 

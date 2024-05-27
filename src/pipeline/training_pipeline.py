@@ -1,5 +1,5 @@
 from src.config.configuration import ConfigurationManager
-from src.training.training_entity import Training
+from training.training import Training
 from src.logging import logger
 
 
