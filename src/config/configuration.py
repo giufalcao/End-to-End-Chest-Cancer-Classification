@@ -2,10 +2,12 @@ import os
 from pathlib import Path
 from constants.path_conf import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from src.utils.common import read_yaml, create_directories
-from src.entity.config_entity import DataIngestionConfig, BaseModelConfig, TrainingConfig
+from src.entity.config_entity import DataIngestionConfig, BaseModelConfig, TrainingConfig, EvaluationConfig
 
 class ConfigurationManager:
-    """Class to manage configuration settings."""
+    """
+    Class to manage configuration settings.
+    """
 
     def __init__(self, config_filepath=CONFIG_FILE_PATH, params_filepath=PARAMS_FILE_PATH):
         """
@@ -19,7 +21,6 @@ class ConfigurationManager:
         self.params = read_yaml(params_filepath)
         create_directories([self.config.artifacts_root])
 
-
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         """
         Retrieve DataIngestionConfig from the configuration.
@@ -29,7 +30,7 @@ class ConfigurationManager:
         """
         config = self.config.data_ingestion
         create_directories([config.root_dir])
-        
+
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
             source_URL=config.source_URL,
@@ -46,7 +47,6 @@ class ConfigurationManager:
         - BaseModelConfig: Configuration for preparing the base model.
         """
         config = self.config.prepare_base_model
-        
         create_directories([config.root_dir])
 
         prepare_base_model_config = BaseModelConfig(
@@ -89,3 +89,20 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+    def get_evaluation_config(self) -> EvaluationConfig:
+        """
+        Retrieve EvaluationConfig from the configuration.
+
+        Returns:
+        - EvaluationConfig: Configuration for evaluation.
+        """
+        eval_config = EvaluationConfig(
+            path_of_model="artifacts/training/model.h5",
+            training_data="artifacts/data_ingestion/Chest-CT-Scan-data",
+            mlflow_uri="https://dagshub.com/giufalcao/chest-Disease-Classification-MLflow-DVC.mlflow",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config

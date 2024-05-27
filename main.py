@@ -1,3 +1,4 @@
+from inference.inference_pipeline import EvaluationPipeline
 from src.constants import constants
 from preprocess.preprocess import DataIngestionTrainingPipeline
 from models.base_model_training import BaseModelTrainingPipeline
@@ -36,3 +37,14 @@ if __name__ == '__main__':
     except Exception as e:
             logger.exception(e)
             raise e
+    
+
+    try:
+        logger.info(f"*******************")
+        logger.info(f">>>>>> stage {constants.INFERENCE_STEP} started <<<<<<")
+        obj = EvaluationPipeline()
+        obj.main()
+        logger.info(f">>>>>> stage {constants.INFERENCE_STEP} completed <<<<<<\n\nx==========x")
+    except Exception as e:
+        logger.exception(e)
+        raise e
